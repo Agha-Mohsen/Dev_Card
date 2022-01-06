@@ -25,20 +25,27 @@ namespace Dev.Controllers
         }
 
         //[HttpPost]
-        //public JsonResult Contact(IFormCollection form)
+        //public JsonResult Contact(IFormCollection model)
         //{
-        //    var name = form["name"];
-        //    var email = form["email"];
-        //    var service = form["service"];
-        //    var message = form["message"];
+        //    var name = model["name"];
+        //    var email = model["email"];
+        //    var service = model["service"];
+        //    var message = model["message"];
         //    return Json(Ok());
         //}
 
 
         [HttpPost]
-        public JsonResult Contact(Contact form)
+        public IActionResult Contact(Contact model)
         {
-            return Json(Ok());
+            if (!ModelState.IsValid)
+            {
+                ViewBag.error = "اطلاعات بدرستی وارد نشده مجددا تلاش فرمایید";
+                return View(model);
+            }
+
+            ViewBag.success = "اطلاعات بدرسی ارسال شد با تشکر";
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
